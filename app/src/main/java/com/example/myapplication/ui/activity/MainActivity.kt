@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-     val homeFragment by lazy {
+    val homeFragment by lazy {
         HomeFragment()
     }
 
@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         fm.beginTransaction().add(R.id.fragment_container, homeFragment, "homeFragment").commit()
     }
 
-// to handle the navigation between the fragment's hide and show process to maintain the data
+    // to handle the navigation between the fragment's hide and show process to maintain the data
     private val mOnNavigationItemSelectedListener: BottomNavigationView.OnNavigationItemSelectedListener =
         object : BottomNavigationView.OnNavigationItemSelectedListener {
             override fun onNavigationItemSelected(@NonNull item: MenuItem): Boolean {
@@ -77,7 +77,6 @@ class MainActivity : AppCompatActivity() {
 
             }
         }
-
 
 
 }

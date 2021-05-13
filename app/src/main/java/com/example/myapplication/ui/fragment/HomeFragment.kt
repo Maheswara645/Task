@@ -1,22 +1,23 @@
 package com.example.myapplication.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.R
 import com.example.myapplication.`interface`.CommentListener
 import com.example.myapplication.datafactory.MainViewModelFactory
+import com.example.myapplication.helper.isNetworkConnected
+import com.example.myapplication.helper.toast
 import com.example.myapplication.networkcall.ApiServices
 import com.example.myapplication.response.model.DetailsModel
 import com.example.myapplication.ui.activity.MainActivity
 import com.example.myapplication.ui.adapter.HomeListAdapter
 import com.example.myapplication.viewmodel.HomeViewModel
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -32,8 +33,12 @@ class HomeFragment : Fragment(), CommentListener {
         super.onCreate(savedInstanceState)
         //to avoid repeated setof data
         lifecycleScope.launchWhenResumed {
-            setupList() // set list
-            setupView()// set view
+            if (isNetworkConnected(requireContext())) {
+                setupList() // set list
+                setupView()// set view
+            } else {
+                getString(R.string.no_internet_connection).toast(requireContext(), 3 * 1000)
+            }
         }
     }
 
